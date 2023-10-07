@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from .models import Category, Package,VechileType,Variation,Slot,Booking
 from .forms import BikeForm
-from .forms import CarForm,SlotForm
+from .forms import CarForm,SlotForm,CartForm,Cart
 from django.utils import timezone
 from threading import Thread
 from time import sleep
@@ -220,12 +220,18 @@ def slotbook(request,id=None,dates=None):
             return HttpResponse("Invalid date format")
 
     today = date.today()
+    # five_minutes_ago = timezone.now() - timezone.timedelta(minutes=5)
+    # cart=Cart.objects.filter(created_at__lte=five_minutes_ago)
+    # for i in expired:
+    #     i.slot.is_available=True
+    #     i.slot.save()
+    # expired.delete()
+
     booked_dates = Slot.objects.filter(date__gt=today).values_list("date", "timeslot")
     date_list = [{"timeslot": timeslot, "date": (date.year, date.month, date.day)} for date, timeslot in booked_dates]
     fd = [today + timedelta(days=i) for i in range(1, 6)]
     five_date = [date.strftime('%Y, %m, %d') for date in fd]
     booked_slot = Slot.objects.filter(date = formatted_date,is_available=False).values_list("timeslot",flat=True)
-
     
     
     if request.method == 'POST':
@@ -243,11 +249,57 @@ def slotbook(request,id=None,dates=None):
         
             slot.save()
             print(slot.id)
-            return redirect('booking', slot_id=slot.id) 
+            return redirect('bookingview', slot_id=slot.id) 
     else:
         form = SlotForm()
 
     return render(request, 'hometemplates/slotbook.html', {'id':id,'form': form,"date_list":date_list,"five_date":five_date,'booked_slot':booked_slot})
+
+# from threading import Thread
+# import time
+# def do_this():
+#     print('Starting This')
+#     time.sleep(2)
+#     print('Finshed This')
+    
+# def do_that():
+#     print('Started That')
+#     time.sleep(2)
+#     print('Finished That')    
+
+# t1 = Thread(target=do_this)
+# t1.start()
+# do_this()
+# do_that()
+
+def add_cart(request, id):
+    slot = get_object_or_404(Slot, pk=id)
+    print(slot,'llllllllllllllllllllllpppppppppppp')
+    if request.method == 'POST':
+        form = CartForm(request.POST)
+        if form.is_valid():
+            cart = form.save(commit=False)
+            cart.user = request.user 
+            cart.slot = slot
+            cart.save()
+            slot.is_available = False
+            slot.save()
+            return redirect('view_cart')  
+    else:
+        form = CartForm()
+    return render(request, 'hometemplates/add_cart.html', {'form': form, 'slot': slot})
+
+def view_cart(request):
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    return render(request, 'hometemplates/cart.html', {'cart_items': cart_items})
+
+def remove_cart(request, id):
+    cart_item = get_object_or_404(Cart, pk=id)
+    slot=cart_item.slot
+    slot.delete()
+    cart_item.delete()
+    return redirect('view_cart')
 
 
 # def book(request, slot_id):
@@ -420,6 +472,27 @@ def book(request, slot_id,coupon=None):
         }
         
         return render(request, 'hometemplates/booking.html', context)
+
+
+def bookingview(request, slot_id):
+    slot = Slot.objects.get(id=slot_id)
+    variation=slot.variation
+    price=variation.price
+    vechile_type=variation.vechile_type
+    package=variation.package
+    time=slot.timeslot
+    formatted_time = time_ranges.get(time, 'Unknown Time Range')
+    print(formatted_time)
+    
+    context={
+        'id':slot_id,
+        'package':package,
+        'vechile_type':vechile_type,
+        'price':price,
+        'date':slot.date,
+        'time':formatted_time,
+    }
+    return render(request,'hometemplates/bookingview.html',context)
 
 
 from .models import Coupon

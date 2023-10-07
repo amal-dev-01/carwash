@@ -1,5 +1,5 @@
 from django import forms
-from .models import Slot
+from .models import Slot,Cart
 
 class CarForm(forms.Form):
     name = forms.ChoiceField(
@@ -33,3 +33,9 @@ class SlotForm(forms.ModelForm):
 
 class CouponForm(forms.Form):
     coupon_code = forms.CharField(max_length=20)
+
+
+class CartForm(forms.ModelForm):
+    class Meta:
+        model = Cart
+        fields = [] 

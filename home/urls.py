@@ -8,7 +8,11 @@ urlpatterns = [
     path('coupon/<int:slot_id>/',views.coupon,name='coupon'),
 
     path('myorder/',views.myorder,name='myorder'),
-
+    path('add_cart/<int:id>/',views.add_cart,name='add_cart'),
+    path('view_cart/',views.view_cart,name='view_cart'),
+    path('remove_cart/<int:id>/',views.remove_cart,name='remove_cart'),
+    path('bookingview/<int:slot_id>/',views.bookingview,name='bookingview'),
+    
     path('orderdetails/<int:id>/',views.orderdetails,name='orderdetails'),
     path('cancel_order/<int:order_id>/', views.cancel_order, name='cancel_order'),
     path('editprofile/<int:id>/',views.editprofile,name='editprofile'),
