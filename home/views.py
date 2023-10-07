@@ -418,6 +418,7 @@ def book(request, slot_id,coupon=None):
             'date': slot.date,
             'time': formatted_time,
         }
+        
         return render(request, 'hometemplates/booking.html', context)
 
 
@@ -499,7 +500,7 @@ def download_invoice(request, booking_id):
         'last_name': booking.user.last_name,
         'package': package,
         'variation': variation,
-        'price': variation.price,
+        'price': booking.price,
         'date': booking.slot.date,
         'time': formatted_time,  # Make sure to obtain 'formatted_time' as you did before
         'booking_id': booking_id,
