@@ -11,16 +11,53 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <style>
+            /* Style for the entire form */
+.coupon-form {
+  max-width: 400px; /* Set a maximum width for the form */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the form elements (e.g., input fields and labels) */
+.coupon-form p {
+  margin-bottom: 10px;
+}
+
+/* Style for the "Apply Coupon" button */
+.apply-coupon-button {
+  background-color: #007bff; /* Blue background color */
+  color: #fff; /* White text color */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.apply-coupon-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+        </style>
     </head>
     <body>
         
 
-        <form method="post" action="{% url 'coupon' slot_id=slot_id %}">
+        {% comment %} <form method="post" action="{% url 'coupon' slot_id=slot_id %}">
             {% csrf_token %}
             {{ coupon_form.as_p }}
             <button type="submit">Apply Coupon</button>
         </form>
-        
+         {% endcomment %}
+         <form method="post" action="{% url 'coupon' slot_id=slot_id %}" class="coupon-form">
+            {% csrf_token %}
+            {{ coupon_form.as_p }}
+            <button type="submit" class="apply-coupon-button">Apply Coupon</button>
+        </form>
         
         <script src="" async defer></script>
     </body>

@@ -23,7 +23,7 @@
                 position: relative;
                 width: 100%;
                 height: 70vh;
-                background-image: url("https://jrekautocare.com/wp-content/uploads/2017/04/professional-quality-car-washing.png");
+                background-image: url("https://wallpapers.com/images/featured/car-wash-0d91u3sqo0qw441a.jpg");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -59,43 +59,62 @@
               .cls-button:hover {
                 background-color: #0056b3;
               }
-              .container {
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-                width: 300px;
-                text-align: center;
-            }
-    
-            .container h2 {
-                font-size: 24px;
-                margin-bottom: 20px;
-            }
-    
-            .account-details {
-                text-align: center;
-                padding-top:70px;
-                margin-bottom: 15px;
-            }
-    
-            .account-details label {
-                font-weight: bold;
-            }
-            .container {
-              display: flex;
-              justify-content: space-between; /* Space them evenly */
-          }
+           
+          body {
+  background: linear-gradient(to bottom, #0099cc, #0033cc);
+}
+
+.circle-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+    background-color: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.circle img {
+    width: 100%; /* Make the image width 100% of the circle */
+    height: 100%; /* Make the image height 100% of the circle */
+    object-fit: cover; /* Crop the image to cover the entire circle */
+    border-radius: 50%; /* Keep the image rounded within the circle */
+}
+
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border:none
+}
+
+.cards {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.cards img {
+    width: 100%; /* Make the image width 100% of the circle */
+    height: 100%; /* Make the image height 100% of the circle */
   
-          
-          .card {
-              width: 45%; /* Adjust the width as needed */
-              background-color: #f0f0f0;
-              padding: 20px;
-              margin: 10px;
-              border-radius: 5px;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          }
+   
+}
+
+
+
+
         </style>
     </head>
     <body>
@@ -111,47 +130,49 @@
             </div>
           </div>
 
- 
-
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="account-details">
-                  <h2>Available Status</h2>
-                  {% if holiday_message %}
-                  <h3>Status: {{ holiday_message }}</h3>
-                  {% else %}
-                  <p>Opening time: 9 AM</p>
-                  <p>Closing time: 7 PM</p>
-                  <h3>Status: {{ status }}</h3>
-                  {% endif %}
-              </div>
-              </div>
-              <div class="col-md-6">
-                <img src="https://img.freepik.com/free-photo/beautiful-car-washing-service_23-2149212221.jpg?t=st=1694875996~exp=1694876596~hmac=4c30c13bf7270aaa2beff563b1f2d0e38ca99208bd34f0d6e4b9bf95171f6d07" class="img-fluid img-thumbnail" alt="Random Image">
-              </div>
-            </div>
-          </div>
-          
-
-          <div class="container">
+        <div class="container" style="padding:50px">
+          <div class="row justify-content-center">
            
-            <div class="card">
-                <h2>Car</h2>
-               <a href="{% url "category" vehicle='car'  %}"> <img src="https://img.freepik.com/free-photo/beautiful-car-washing-service_23-2149212221.jpg?t=st=1694875996~exp=1694876596~hmac=4c30c13bf7270aaa2beff563b1f2d0e38ca99208bd34f0d6e4b9bf95171f6d07" class="img-fluid img-thumbnail" alt="Random Image">
-               </a> <p>Slot book for car</p>
+              <div class="col-md-4 col-sm-6">
+                  <div class="circle">
+                      <img src="https://uploads-ssl.webflow.com/608f75e74f6b9ce552f79e6b/6193d618cace9e10083ece77_a%20young%20woman%20washing%20a%20car.jpg" alt="Image 1">
+                  </div>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                  <div class="circle">
+                      <img src="https://img.freepik.com/free-photo/car-wash-detailing-station_1303-22307.jpg?w=1380&t=st=1696747541~exp=1696748141~hmac=8ebb907f708502dc4c6a4c2e4300c8bbf81f7f29e809de335106119828ebeba8" alt="Image 2">
+                  </div>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                  <div class="circle">
+                      <img src="https://img.freepik.com/free-photo/man-washing-his-car-garage_1157-26072.jpg?w=1380&t=st=1696747602~exp=1696748202~hmac=10b189a80091ba265c1609197159b3b1192cb6af131d330f018fc15818120705" alt="Image 3">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+      <div class="container" style="padding:50px">
+        <div class="row justify-content-center">
+          <h2 style="text-align:center;color:white;"><b>Book your Slot</b></h2>
+            <div class="col-md-6 col-sm-6">
+                <div class="cards">
+                  <a href="{% url "category" vehicle='car'  %}">
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="img-fluid " alt="Random Image">
+                  </a>
+                </div>
             </div>
-    
-            <div class="card">
-                <h2>Bike</h2>
-                <a href="{% url "category" vehicle='bike'  %}"> <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="img-fluid img-thumbnail" alt="Random Image">
-                </a>
-                <p>Slot book for bike</p>
+            <div class="col-md-5 col-sm-6">
+                <div class="cards">
+                  <a href="{% url "category" vehicle='bike'  %}">
+                    <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="img-fluid" alt="Random Image">
+                  </a>
+                </div>
             </div>
         </div>
-
-
+    </div>
+    
           
 <footer>
 
